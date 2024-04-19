@@ -1,9 +1,9 @@
 import React from 'react'
 
-function SininForms() {
+function SigninForms() {
   return (
-    <div>SininForms</div>
+    <div>SigninForms</div>
   )
 }
 
-export default SininForms
+export default SigninForms

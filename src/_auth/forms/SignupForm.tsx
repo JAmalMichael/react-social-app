@@ -1,8 +1,12 @@
 import React from 'react'
+import { Button } from "@/components/ui/button"
+
 
 function SingupForm() {
   return (
-    <div>SingupForm</div>
+    <div>
+      <Button>Click me</Button>
+      </div>
   )
 }
 
