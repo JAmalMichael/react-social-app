@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { SignupValidation } from '@/lib/validation';
 import Loader from '@/components/shared/Loader';
+import { createUserAccount } from '@/lib/appwrite/api';
 
  
 
@@ -37,10 +38,10 @@ function SingupForm() {
  
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     //on submit we want to create the user
-    //const newUser = await createUserAccount(values);
+    const newUser = await createUserAccount(values);
+
+    console.log(newUser)
   }
   
   return (
