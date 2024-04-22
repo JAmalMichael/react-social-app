@@ -41,7 +41,9 @@ function SingupForm() {
     //on submit we want to create the user
     const newUser = await createUserAccount(values);
 
-    console.log(newUser)
+    if(!newUser) {
+      return;
+    }
   }
   
   return (
