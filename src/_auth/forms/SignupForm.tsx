@@ -7,7 +7,6 @@ import * as z from 'zod';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,12 +16,16 @@ import { Input } from "@/components/ui/input";
 import { SignupValidation } from '@/lib/validation';
 import Loader from '@/components/shared/Loader';
 import { createUserAccount } from '@/lib/appwrite/api';
+import { useToast } from '@/components/ui/use-toast';
+
+
 
  
 
 
 function SingupForm() {
 
+  const {toast } = useToast()
   const isLoading = false;
 
   // 1. Define your form.
@@ -42,8 +45,11 @@ function SingupForm() {
     const newUser = await createUserAccount(values);
 
     if(!newUser) {
-      return;
+      return    toast({
+        title: "Sign up failed, Please try again" })
     }
+
+    // cont session = await signInAccount()
   }
   
   return (
