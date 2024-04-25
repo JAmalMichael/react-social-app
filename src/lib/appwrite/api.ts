@@ -1,8 +1,9 @@
 //functions for creating new users.
 
 import { INewUser } from "@/types";
-import { ID } from "appwrite";
+import { ID, Query } from "appwrite";
 import { account, appwriteConfig, avatars, databases } from "./config";
+
 
 
 export async function createUserAccount(user: INewUser) {
@@ -62,6 +63,27 @@ export async function signInAccount(user: {
         const session = await account.createEmailPasswordSession(user.email, user.password);
 
         return session;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export async function getCurrentUser() {
+    try {
+       const currentAccount = await account.get()
+       
+       if(!currentAccount) throw Error;
+
+       //getting a list of all user document in the given collection
+       const currentUser = await databases.listDocuments(
+        appwriteConfig.databaseId,
+        appwriteConfig.userCollectionId,
+        [Query.equal('accoutntId', currentAccount.$id)]
+       )
+
+       if(!currentUser) throw Error;
+
+       return currentUser.documents[0];
     } catch (error) {
         console.log(error)
     }
