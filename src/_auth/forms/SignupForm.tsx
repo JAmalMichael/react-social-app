@@ -17,12 +17,8 @@ import { SignupValidation } from '@/lib/validation';
 import Loader from '@/components/shared/Loader';
 import { createUserAccount } from '@/lib/appwrite/api';
 import { useToast } from '@/components/ui/use-toast';
-import { useCreateUserAccount, useSignInAccount } from '@/lib/react-query/queriesandmutations';
+import { useCreateUserAccount, useSignInAccount } from '@/lib/react-query/queriesandMutations';
 import { useUserContext } from '@/context/AuthContext';
-
-
-
- 
 
 
 function SingupForm() {
@@ -31,9 +27,9 @@ function SingupForm() {
   const {checkAuthUser, isLoading: isUserLoading } = useUserContext();
   const navigate = useNavigate();
 
-  const {mutateAsync: createUserAccount,  isLoading:isCreatingAccount} = useCreateUserAccount();
+  const {mutateAsync:createUserAccount,  isPending:isCreatingAccount} = useCreateUserAccount();
 
-  const {mutateAsync: signInAccount, isLoading:isSigningIn} = useSignInAccount();
+  const {mutateAsync:signInAccount, isPending:isSigningIn} = useSignInAccount();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
@@ -143,7 +139,7 @@ function SingupForm() {
           />
           <Button type="submit" className='shad-button_primary'>
             {
-              isCreatingUser ? (
+              isCreatingAccount ? (
                 <div className='flex-center gap-2'>
                  <Loader />   Loading...
                 </div>
