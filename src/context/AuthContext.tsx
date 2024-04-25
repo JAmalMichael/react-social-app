@@ -57,10 +57,9 @@ const AuthContext = createContext<IContextType>(INITIAL_STATE);
   }
 
   useEffect(() => {
+    // localStorage.getItem('cookieFallback') === null
 if(
-  localStorage.getItem('cookieFalback') === '[]' ||
-    localStorage.getItem('cookieFallback') === null)
- navigate('/sign-in')
+  localStorage.getItem('cookieFalback') === '[]' )navigate('/sign-in')
 
  checkAuthUser();
   }, [])
