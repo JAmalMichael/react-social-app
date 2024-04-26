@@ -5,7 +5,7 @@ import RootLayout from './_root/RootLayout';
 import { Home } from './_root/pages';
 import './globals.css';
 import { Routes, Route } from 'react-router-dom';
-import { useToast } from "@/components/ui/use-toast"
+import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from './components/ui/toaster';
 
 const App = () => {
@@ -22,7 +22,6 @@ const App = () => {
             {/* private routes */}
             <Route element={<RootLayout/>}>
             <Route index element={<Home />}/>
-
             </Route>
 
         </Routes>

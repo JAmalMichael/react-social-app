@@ -37,7 +37,7 @@ function SingupForm() {
     defaultValues: {
       name: "",
       username: "",
-      email: '',
+      email: "",
       password: "",
     },
   })
@@ -45,12 +45,14 @@ function SingupForm() {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
     //on submit we want to create the user
-    const newUser = await createUserAccount(values);
 
-    if(!newUser) {
-      return    toast({
-        title: "Sign up failed, Please try again" })
-    }
+    const newUser = await createUserAccount(values);
+    console.log(newUser)
+
+    // if(!newUser) {
+    //   return    toast({
+    //     title: "Sign up failed, Please try again" })
+    // }
 
     const session = await signInAccount({
       email: values.email,
@@ -58,7 +60,8 @@ function SingupForm() {
     })
 
     if(!session) {
-      return toast({title: 'Sign i failed, Please try again'});
+      return    toast({
+        title: "Sign in failed, Please try again" })
     }
 
     const isLoggedIn = await checkAuthUser();
