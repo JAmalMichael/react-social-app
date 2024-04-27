@@ -44,15 +44,15 @@ function SingupForm() {
  
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
-    //on submit we want to create the user
 
+  //on submit we want to create the user
     const newUser = await createUserAccount(values);
-    console.log(newUser)
+  // console.log(newUser)
 
-    // if(!newUser) {
-    //   return    toast({
-    //     title: "Sign up failed, Please try again" })
-    // }
+    if(!newUser) {
+      return    toast({
+        title: "Sign up failed. Please try again." })
+    }
 
     const session = await signInAccount({
       email: values.email,

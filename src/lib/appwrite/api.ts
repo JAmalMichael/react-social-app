@@ -34,6 +34,7 @@ export async function createUserAccount(user: INewUser) {
     }
   }
 
+//
  export async function saveUserToDB(user: {
      accountId: string;
      email: string;
@@ -46,20 +47,21 @@ export async function createUserAccount(user: INewUser) {
         appwriteConfig.databaseId,
         appwriteConfig.userCollectionId,
         ID.unique(),
-        user,
-  )
-  return newUser;
+        user,)
+
+           return newUser;
      } catch (error) {
-  console.log(error)
+        console.log(error)
      }
  }
 
+ //Signing in function
 export async function signInAccount(user: {
     email: string;
     password: string;
 }) {
     try {
-        const session = await account.createEmailPasswordSession(user.email, user.password);
+        const session = await account.createEmailSession(user.email, user.password);
 
         return session;
     } catch (error) {
@@ -79,10 +81,10 @@ export async function getAccount() {
   }
 
 
-//Get user.
+//Get current user.
 export async function getCurrentUser() {
     try {
-      const currentAccount = await getAccount();
+      const currentAccount = await account.get();
   
       if (!currentAccount) throw Error;
   
@@ -97,6 +99,6 @@ export async function getCurrentUser() {
       return currentUser.documents[0];
     } catch (error) {
       console.log(error);
-      return null;
+      //return null;
     }
   }

@@ -46,6 +46,8 @@ const AuthContext = createContext<IContextType>(INITIAL_STATE);
             setIsAuthenticated(true);
             return true;
         }
+
+
         return false;
     } catch (error) {
         console.log(error);
@@ -57,11 +59,12 @@ const AuthContext = createContext<IContextType>(INITIAL_STATE);
   }
 
   useEffect(() => {
-    // localStorage.getItem('cookieFallback') === null
-if(
-  localStorage.getItem('cookieFalback') === '[]' )navigate('/sign-in')
+      
+    if(
+      localStorage.getItem('cookieFalback') === '[]' ||
+      localStorage.getItem('cookieFallback') === null)navigate('/sign-in')
 
- checkAuthUser();
+      checkAuthUser();
   }, [])
 
 

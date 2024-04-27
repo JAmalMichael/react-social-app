@@ -7,6 +7,7 @@ import {
 import { createUserAccount, signInAccount } from '../appwrite/api';
 import { INewUser } from '@/types';
 
+// initialising a new mutation function for the react-query
 export const useCreateUserAccount = () => {
     return useMutation({
         mutationFn: (user: INewUser)=> createUserAccount(user)
