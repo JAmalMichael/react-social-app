@@ -15,13 +15,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { SignupValidation } from '@/lib/validation';
 import Loader from '@/components/shared/Loader';
-import { createUserAccount } from '@/lib/appwrite/api';
 import { useToast } from '@/components/ui/use-toast';
 import { useCreateUserAccount, useSignInAccount } from '@/lib/react-query/queriesandMutations';
 import { useUserContext } from '@/context/AuthContext';
 
 
-function SingupForm() {
+function SignupForm() {
 
   const {toast } = useToast();
   const {checkAuthUser, isLoading: isUserLoading } = useUserContext();
@@ -163,4 +162,4 @@ function SingupForm() {
   )
 }
 
-export default SingupForm
+export default SignupForm
