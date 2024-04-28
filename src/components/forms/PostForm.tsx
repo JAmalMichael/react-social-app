@@ -3,18 +3,16 @@ import { Models } from "appwrite";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-import {
-  Form,
+import { 
+  Form ,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-  Button,
-  Input,
-  Textarea,
-} from "@/components/ui";
+  FormMessage,} from "../ui/form";
+import { Button } from "../ui/button";
+import { Input} from "../ui/input";
+import { Textarea } from "../ui/textarea";
 import { PostValidation } from "@/lib/validation";
 import { useToast } from "@/components/ui/use-toast";
 import { useUserContext } from "@/context/AuthContext";
@@ -143,7 +141,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
               </FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Art, Expression, Learn"
+                  placeholder="Coding Experience"
                   type="text"
                   className="shad-input"
                   {...field}
