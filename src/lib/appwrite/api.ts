@@ -104,12 +104,12 @@ export async function getCurrentUser() {
   }
 
 //singing out
-  export async function signOutAccount() {
-    try {
-      const session = await account.deleteSession("current");
+export async function signOutAccount() {
+  try {
+    const session = await account.deleteSession("current");
 
-      return session
-    } catch (error) {
-      console.log()
-    }
+    return session;
+  } catch (error) {
+    console.log(error);
   }
+}

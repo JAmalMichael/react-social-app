@@ -52,7 +52,7 @@ const LeftSideBar = () => {
                             key={link.label}
                             >
                                 <NavLink
-                                 to="link.route" 
+                                 to={link.route} 
                                  className="flex gap-4 items-center p-4"
                                 >
                                     <img 
