@@ -118,50 +118,48 @@ export async function signOutAccount() {
 
 export async function createPost(post: INewPost) {
   try {
-    // uploading image to storage
+    // Upload file to appwrite storage
     const uploadedFile = await uploadFile(post.file[0]);
 
-    if(!uploadedFile) throw Error;
+    if (!uploadedFile) throw Error;
 
-    // Getting file
+    // Get file url
     const fileUrl = getFilePreview(uploadedFile.$id);
-
-    if(!fileUrl){
-      deleteFile(uploadedFile.$id);
-      throw Error
-    } 
-        
-  //Converting tags
-  const tags = post.tags?.replace( / /g, '').split(',') || []; 
-  //save new post
-
-  const newPost = await databases.createDocument(
-    appwriteConfig.databaseId,
-    appwriteConfig.postCollectionId,
-    ID.unique(),
-    {
-      creator: post.userId,
-      caption: post.caption,
-      imageUrl: fileUrl,
-      imageId: uploadedFile.$id,
-      location: post.location,
-      tags: tags
+    if (!fileUrl) {
+      await deleteFile(uploadedFile.$id);
+      throw Error;
     }
-  )
 
-  if(!newPost) {
-    await deleteFile(uploadedFile.$id)
-    throw Error;
+    // Convert tags into array
+    const tags = post.tags?.replace(/ /g, "").split(",") || [];
+
+    // Create post
+    const newPost = await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      ID.unique(),
+      {
+        creator: post.userId,
+        caption: post.caption,
+        imageUrl: fileUrl,
+        imageId: uploadedFile.$id,
+        location: post.location,
+        tags: tags,
+      }
+    );
+
+    if (!newPost) {
+      await deleteFile(uploadedFile.$id);
+      throw Error;
+    }
+
+    return newPost;
+  } catch (error) {
+    console.log(error);
   }
-
-  return newPost;
-}
-  catch (error) {
-    console.log(error)
-  }
-
 }
 
+// ============================== UPLOAD FILE
 export async function uploadFile(file: File) {
   try {
     const uploadedFile = await storage.createFile(
@@ -169,14 +167,15 @@ export async function uploadFile(file: File) {
       ID.unique(),
       file
     );
-   
+
     return uploadedFile;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
 
-export async function getFilePreview(fileId: string) {
+// ============================== GET FILE URL
+export function getFilePreview(fileId: string) {
   try {
     const fileUrl = storage.getFilePreview(
       appwriteConfig.storageId,
@@ -184,21 +183,24 @@ export async function getFilePreview(fileId: string) {
       2000,
       2000,
       "top",
-      100,
-    )
+      100
+    );
 
-    return fileUrl
+    if (!fileUrl) throw Error;
+
+    return fileUrl;
   } catch (error) {
     console.log(error);
   }
 }
 
+// ============================== DELETE FILE
 export async function deleteFile(fileId: string) {
   try {
     await storage.deleteFile(appwriteConfig.storageId, fileId);
 
-    return {status: 'OK'}
+    return { status: "ok" };
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }

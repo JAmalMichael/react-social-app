@@ -32,11 +32,11 @@ export const useSignOutAccount = () => {
 export const useCreatePost = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (post: INewPost) => createPost(post),
-        onSuccess: () => {
-            queryClient.invalidateQueries({
-                queryKey: 'getRecentPosts'
-            })
-        }
-    })
-}
+      mutationFn: (post: INewPost) => createPost(post),
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: "getRecentPosts"
+        });
+      },
+    });
+  };
