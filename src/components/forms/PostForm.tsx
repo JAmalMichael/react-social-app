@@ -18,7 +18,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useUserContext } from "@/context/AuthContext";
 import {  Loader } from "@/components/shared";
 import FileUploader from "../shared/FileUploader";
-import { useCreatePost, useUpdatePost } from "@/lib/react-query/queriesandMutations";
+import { useCreatePost,  } from "@/lib/react-query/queriesandMutations";
 
 type PostFormProps = {
   post?: Models.Document;
@@ -40,29 +40,29 @@ const PostForm = ({ post, action }: PostFormProps) => {
   });
 
   // Query
-  const { mutateAsync: createPost, isLoading: isLoadingCreate } =
+  const { mutateAsync: createPost, isPending: isLoadingCreate } =
     useCreatePost();
-  const { mutateAsync: updatePost, isLoading: isLoadingUpdate } =
-    useUpdatePost();
+  // const { mutateAsync: updatePost, isLoading: isLoadingUpdate } =
+  //   useUpdatePost();
 
   // Handler
   const handleSubmit = async (value: z.infer<typeof PostValidation>) => {
-    // ACTION = UPDATE
-    if (post && action === "Update") {
-      const updatedPost = await updatePost({
-        ...value,
-        postId: post.$id,
-        imageId: post.imageId,
-        imageUrl: post.imageUrl,
-      });
+    // // UPDATING POST
+    // if (post && action === "Update") {
+    //   const updatedPost = await updatePost({
+    //     ...value,
+    //     postId: post.$id,
+    //     imageId: post.imageId,
+    //     imageUrl: post.imageUrl,
+    //   });
 
-      if (!updatedPost) {
-        toast({
-          title: `${action} post failed. Please try again.`,
-        });
-      }
-      return navigate(`/posts/${post.$id}`);
-    }
+    //   if (!updatedPost) {
+    //     toast({
+    //       title: `${action} post failed. Please try again.`,
+    //     });
+    //   }
+    //   return navigate(`/posts/${post.$id}`);
+    // }
 
     // ACTION = CREATE
     const newPost = await createPost({
@@ -159,13 +159,13 @@ const PostForm = ({ post, action }: PostFormProps) => {
             onClick={() => navigate(-1)}>
             Cancel
           </Button>
-          <Button
+          {/* <Button
             type="submit"
             className="shad-button_primary whitespace-nowrap"
             disabled={isLoadingCreate || isLoadingUpdate}>
             {(isLoadingCreate || isLoadingUpdate) && <Loader />}
             {action} Post
-          </Button>
+          </Button> */}
         </div>
       </form>
     </Form>
