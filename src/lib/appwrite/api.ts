@@ -204,7 +204,29 @@ export async function deleteFile(fileId: string) {
   }
 }
 
+//Delete posts
+export async function deletePost(postId?: string, imageId?: string) {
+  if (!postId || !imageId) return;
 
+  try {
+    const statusCode = await databases.deleteDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      postId
+    );
+
+    if (!statusCode) throw Error;
+
+    await deleteFile(imageId);
+
+    return { status: "Ok" };
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+//Get recent post
 export async function  getRecentPosts() {
   const posts = await databases.listDocuments(
     appwriteConfig.databaseId,
