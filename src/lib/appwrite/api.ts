@@ -3,7 +3,6 @@
 import { INewPost, INewUser, IUpdatePost } from "@/types";
 import { ID, Query } from "appwrite";
 import { account, appwriteConfig, avatars, databases, storage } from "./config";
-import { getDefaultAutoSelectFamilyAttemptTimeout } from "net";
 
 
 //sign in new user
@@ -347,17 +346,39 @@ export async function updatePost(post: IUpdatePost) {
 }
 
 
-export async function deletePost(postId: string, imageId: string) {
-  if(!postId || imageId) throw Error;
-  try {
-      await databases.deleteDocument(
-        appwriteConfig.databaseId,
-        appwriteConfig.postCollectionId,
-        postId
-      )
+export async function getInfinitePosts({ pageParam }: { pageParam: number }) {
+  const queries: any[] = [Query.orderDesc("$updatedAt"), Query.limit(9)];
 
-      return {status: 'ok'}
+  if (pageParam) {
+    queries.push(Query.cursorAfter(pageParam.toString()));
+  }
+
+  try {
+    const posts = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      queries
+    );
+
+    if (!posts) throw Error;
+
+    return posts;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
+
+export async function searchPosts (searchTerm: string) {
+
+  try {
+    const posts = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      [Query.search('cpation', searchTerm)]
+    )
+    if(!posts) throw Error;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
