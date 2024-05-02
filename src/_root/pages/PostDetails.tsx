@@ -1,8 +1,9 @@
 import { Loader } from "@/components/shared";
+// import GridPostList from "@/components/shared/GridPostList";
 import PostStats from "@/components/shared/PostStats";
 import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/AuthContext";
-import { deletePost } from "@/lib/appwrite/api";
+// import { deletePost } from "@/lib/appwrite/api";
 import { useGetPostById } from "@/lib/react-query/queriesandMutations"
 import { multiFormatDateString } from "@/lib/utils";
 import { useParams, Link } from "react-router-dom"
@@ -13,7 +14,7 @@ const PostDetails = () => {
   const  {user} = useUserContext();
 
   const handleDeletePost = () => {
-    deletePost({ postId: id, imageId: post?.imageId });
+    // deletePost({ postId: id, imageId: post?.imageId });
     // navigate(-1);
   };
 
