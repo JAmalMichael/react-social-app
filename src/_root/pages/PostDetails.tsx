@@ -14,14 +14,14 @@ const PostDetails = () => {
 
   const handleDeletePost = () => {
     deletePost({ postId: id, imageId: post?.imageId });
-    navigate(-1);
+    // navigate(-1);
   };
 
   return (
     <div className="post_details-container">
       <div className="hidden md:flex max-w-5xl w-full">
         <Button
-          onClick={() => navigate(-1)}
+          // onClick={() => navigate(-1)}
           variant="ghost"
           className="shad-button_ghost">
           <img
@@ -129,11 +129,11 @@ const PostDetails = () => {
         <h3 className="body-bold md:h3-bold w-full my-10">
           More Related Posts
         </h3>
-        {isUserPostLoading || !relatedPosts ? (
+        {/* {isUserPostLoading || !relatedPosts ? (
           <Loader />
         ) : (
           <GridPostList posts={relatedPosts} />
-        )}
+        )} */}
       </div>
     </div>
   );
