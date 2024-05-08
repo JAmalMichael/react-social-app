@@ -42,8 +42,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
   // Query
   const { mutateAsync: createPost, isPending: isLoadingCreate } =
     useCreatePost();
-  const { mutateAsync: updatePost, isPending: isLoadingUpdate } =
-    useUpdatePost();
+  const { mutateAsync: updatePost,} = useUpdatePost();
 
   // Handler
   const handleSubmit = async (value: z.infer<typeof PostValidation>) => {
