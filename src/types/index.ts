@@ -55,3 +55,11 @@ export type INavLink = {
     setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
     checkAuthUser: () => Promise<boolean>;
   }
+
+  export type Document = {
+    $id: string;
+  };
+  
+ export type DocumentList<T = Document> = {
+    documents: T[];
+  };
